@@ -12,5 +12,7 @@ function pwd_generator($pwd_length)
             $pwd_result .= $pwd_components[$rnd_component][$rnd_element];
         }
         return $pwd_result;
+    } else {
+        return $pwd_result = "Vai a fare in culo";
     }
 }

@@ -1,10 +1,13 @@
 <?php
 include __DIR__ . "/partials/functions.php";
+session_start();
 
-$pwd_length = $_GET["passwordLength"] ?? 0;
+$pwd_length = $_GET["passwordLength"] ?? "";
 $pwd_length = intval($pwd_length);
 
-$pwd_result = pwd_generator($pwd_length);
+if (!empty($pwd_length)) {
+    $_SESSION["password"] = pwd_generator($pwd_length);
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +22,7 @@ $pwd_result = pwd_generator($pwd_length);
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="./assets/style.css">
     <title>Password Generator</title>
 </head>
 
@@ -41,13 +44,11 @@ $pwd_result = pwd_generator($pwd_length);
                 <div class="buttons">
                     <button class="btn btn-primary" type="submit">Invia</button>
                     <button class="btn btn-secondary" type="reset">Annulla</button>
+                    <?php if (!empty($pwd_length)) { ?>
+                        <a href="result.php" class="btn btn-primary">Vai al risultato</a>
+                    <?php } ?>
                 </div>
             </form>
-        </div>
-
-        <div class="container mt-5 p-4 text-center">
-            <h4>La password generata:</h4>
-            <h2><?php echo $pwd_result; ?></h2>
         </div>
     </main>
 </body>
