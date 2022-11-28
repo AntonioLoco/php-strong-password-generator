@@ -1,23 +1,10 @@
 <?php
+include __DIR__ . "/partials/functions.php";
+
 $pwd_length = $_GET["passwordLength"] ?? 0;
 $pwd_length = intval($pwd_length);
 
-$pwd_components = ["abcdefghijklmnopqrstuvwxyz", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "0123456789", "!£$%&?-@_*"];
-
-$pwd_result = pwd_generator($pwd_length, $pwd_components);
-
-function pwd_generator($pwd_length, $pwd_components)
-{
-    $pwd_result = "";
-    if ($pwd_length > 0) {
-        for ($i = 0; $i < $pwd_length; $i++) {
-            $rnd_component = rand(0, count($pwd_components) - 1);
-            $rnd_element = rand(0, strlen($pwd_components[$rnd_component]) - 1);
-            $pwd_result .= $pwd_components[$rnd_component][$rnd_element];
-        }
-        return $pwd_result;
-    }
-}
+$pwd_result = pwd_generator($pwd_length);
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +20,6 @@ function pwd_generator($pwd_length, $pwd_components)
 
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-
     <title>Password Generator</title>
 </head>
 
