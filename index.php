@@ -5,8 +5,13 @@ session_start();
 $pwd_length = $_GET["passwordLength"] ?? "";
 $pwd_length = intval($pwd_length);
 
-if (!empty($pwd_length)) {
-    $_SESSION["password"] = pwd_generator($pwd_length);
+$pwd_repetition = $_GET["repetition"] ?? "";
+$pwd_letters = $_GET["lettersCheck"] ?? "";
+$pwd_numbers = $_GET["numbersCheck"] ?? "";
+$pwd_simbols = $_GET["simbolsCheck"] ?? "";
+
+if (!empty($pwd_length) && !empty($pwd_repetition)) {
+    $_SESSION["password"] = pwd_generator($pwd_length, $pwd_repetition, $pwd_letters, $pwd_numbers, $pwd_simbols);
 }
 ?>
 
@@ -40,6 +45,43 @@ if (!empty($pwd_length)) {
                 <div class="input mb-5 d-flex justify-content-between align-items-center">
                     <label for="password_length">Lunghezza password:</label>
                     <input type="number" name="passwordLength" id="password_length" class="form-control">
+                </div>
+                <div class="input mb-5 d-flex justify-content-between align-items-center">
+                    <label for="">Consenti ripetizioni di uno o più caratteri: </label>
+                    <div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="repetition" id="flexRadioDefault1" value="true" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                si
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="repetition" id="flexRadioDefault2" value="false">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                no
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="input mb-5 d-flex flex-column align-items-end">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="lettersCheck">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Lettere
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="numbersCheck">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Numeri
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="flexCheckDefault" name="simbolsCheck">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Simboli
+                        </label>
+                    </div>
                 </div>
                 <div class="buttons">
                     <button class="btn btn-primary" type="submit">Invia</button>
